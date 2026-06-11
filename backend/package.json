@@ -4,7 +4,14 @@
     "description": "",
     "main": "index.js",
     "scripts": {
-        "dev": "node --watch index.js"
+        "dev": "node --watch index.js",
+        "test": "node --experimental-vm-modules node_modules/.bin/jest --config jest.config.js --runInBand",
+        "test:auth": "node --experimental-vm-modules node_modules/.bin/jest --config jest.config.js --runInBand tests/integration/auth.test.js",
+        "test:chat": "node --experimental-vm-modules node_modules/.bin/jest --config jest.config.js --runInBand tests/integration/chat.test.js",
+        "test:message": "node --experimental-vm-modules node_modules/.bin/jest --config jest.config.js --runInBand tests/integration/message.test.js",
+        "docker:test": "docker compose -f docker-compose.test.yml up -d",
+        "docker:test:down": "docker compose -f docker-compose.test.yml down",
+        "pretest": "npx prisma migrate deploy"
     },
     "keywords": [],
     "author": "",
@@ -43,5 +50,10 @@
             "@qdrant/js-client-rest": "$@qdrant/js-client-rest",
             "pg": "$pg"
         }
+    },
+    "devDependencies": {
+        "@jest/globals": "^29.7.0",
+        "jest": "^29.7.0",
+        "supertest": "^7.1.0"
     }
 }
